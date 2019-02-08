@@ -12,9 +12,10 @@
 		C926DAE21D7581BB00477020 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C926DAE01D7581BB00477020 /* Main.storyboard */; };
 		C926DAE41D7581BB00477020 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C926DAE31D7581BB00477020 /* Assets.xcassets */; };
 		C926DAE71D7581BB00477020 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C926DAE51D7581BB00477020 /* LaunchScreen.storyboard */; };
-		C926DAF21D7581BB00477020 /* Zozor_Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926DAF11D7581BB00477020 /* Zozor_Tests.swift */; };
 		C926DAFD1D7581BB00477020 /* Zozor_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926DAFC1D7581BB00477020 /* Zozor_UITests.swift */; };
 		C9DA150A1DF08CF100B0974D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9DA15091DF08CF100B0974D /* Default-568h@2x.png */; };
+		FAD2EA0D220E1AC30051BDAA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2EA0C220E1AC30051BDAA /* Model.swift */; };
+		FAD2EA0F220E1B0B0051BDAA /* ModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2EA0E220E1B0B0051BDAA /* ModelTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -43,12 +44,13 @@
 		C926DAE61D7581BB00477020 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		C926DAE81D7581BB00477020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C926DAED1D7581BB00477020 /* CountOnMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountOnMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		C926DAF11D7581BB00477020 /* Zozor_Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zozor_Tests.swift; sourceTree = "<group>"; };
 		C926DAF31D7581BB00477020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C926DAF81D7581BB00477020 /* CountOnMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountOnMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C926DAFC1D7581BB00477020 /* Zozor_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zozor_UITests.swift; sourceTree = "<group>"; };
 		C926DAFE1D7581BB00477020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		C9DA15091DF08CF100B0974D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
+		FAD2EA0C220E1AC30051BDAA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
+		FAD2EA0E220E1B0B0051BDAA /* ModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -111,8 +113,8 @@
 		C926DAF01D7581BB00477020 /* CountOnMeTests */ = {
 			isa = PBXGroup;
 			children = (
-				C926DAF11D7581BB00477020 /* Zozor_Tests.swift */,
 				C926DAF31D7581BB00477020 /* Info.plist */,
+				FAD2EA0E220E1B0B0051BDAA /* ModelTest.swift */,
 			);
 			name = CountOnMeTests;
 			path = "Zozor+Tests";
@@ -131,6 +133,7 @@
 		FAD2EA09220DF8030051BDAA /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				FAD2EA0C220E1AC30051BDAA /* Model.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -290,6 +293,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				FAD2EA0D220E1AC30051BDAA /* Model.swift in Sources */,
 				C926DADF1D7581BB00477020 /* ViewController.swift in Sources */,
 				C926DADD1D7581BB00477020 /* AppDelegate.swift in Sources */,
 			);
@@ -299,7 +303,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C926DAF21D7581BB00477020 /* Zozor_Tests.swift in Sources */,
+				FAD2EA0F220E1B0B0051BDAA /* ModelTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -484,10 +488,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Zozor+Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ambroisecollon.Zozor-Tests";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = On;
 				SWIFT_VERSION = 4.2;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/CountOnMe.app/CountOnMe";
@@ -498,6 +504,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "Zozor+Tests/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = "com.ambroisecollon.Zozor-Tests";

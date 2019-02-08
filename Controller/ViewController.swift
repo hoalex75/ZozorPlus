@@ -10,39 +10,27 @@ import UIKit
 
 class ViewController: UIViewController {
     // MARK: - Properties
-    var stringNumbers: [String] = [String()]
-    var operators: [String] = ["+"]
-    var index = 0
-    var isExpressionCorrect: Bool {
-        if let stringNumber = stringNumbers.last {
-            if stringNumber.isEmpty {
-                if stringNumbers.count == 1 {
-                    let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
-                } else {
-                    let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
-                }
-                return false
-            }
-        }
-        return true
-    }
+    
+    
+    var model: Model!
+    
 
-    var canAddOperator: Bool {
-        if let stringNumber = stringNumbers.last {
-            if stringNumber.isEmpty {
-                let alertVC = UIAlertController(title: "Zéro!", message: "Expression incorrecte !", preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.present(alertVC, animated: true, completion: nil)
-                return false
-            }
-        }
-        return true
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        model = Model()
+        
+        let nameStartANewCalculation = Notification.Name("StartANewCalculation")
+        let nameEnterACorrectExpression = Notification.Name("EnterACorrectExpression")
+        let nameIncorrectExpression = Notification.Name("IncorrectExpression")
+        let nameUpdateDisplay = Notification.Name("UpdateDisplay")
+        let nameUpdateTotal = Notification.Name("UpdateTotal")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(startANewCalculationAlert), name: nameStartANewCalculation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(enterACorrectExpressionAlert), name: nameEnterACorrectExpression, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(incorrectExpression), name: nameIncorrectExpression, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay), name: nameUpdateDisplay, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTextViewForTotal(_:)), name: nameUpdateTotal, object: nil)
     }
-
 
     // MARK: - Outlets
 
@@ -54,70 +42,59 @@ class ViewController: UIViewController {
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         for (i, numberButton) in numberButtons.enumerated() {
             if sender == numberButton {
-                addNewNumber(i)
+                model.addNewNumber(i)
             }
         }
     }
 
     @IBAction func plus() {
-        if canAddOperator {
-        	operators.append("+")
-        	stringNumbers.append("")
-            updateDisplay()
-        }
+        model.plus()
     }
 
     @IBAction func minus() {
-        if canAddOperator {
-            operators.append("-")
-            stringNumbers.append("")
-            updateDisplay()
-        }
+        model.minus()
     }
 
     @IBAction func equal() {
-        calculateTotal()
+        model.calculateTotal()
     }
 
 
     // MARK: - Methods
 
-    func addNewNumber(_ newNumber: Int) {
-        if let stringNumber = stringNumbers.last {
-            var stringNumberMutable = stringNumber
-            stringNumberMutable += "\(newNumber)"
-            stringNumbers[stringNumbers.count-1] = stringNumberMutable
-        }
-        updateDisplay()
+    @objc func startANewCalculationAlert() {
+        let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
     }
-
-    func calculateTotal() {
-        if !isExpressionCorrect {
-            return
-        }
-
-        var total = 0
-        for (i, stringNumber) in stringNumbers.enumerated() {
-            if let number = Int(stringNumber) {
-                if operators[i] == "+" {
-                    total += number
-                } else if operators[i] == "-" {
-                    total -= number
-                }
+    
+    @objc func enterACorrectExpressionAlert() {
+        let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
+    @objc func incorrectExpression() {
+        let alertVC = UIAlertController(title: "Zéro!", message: "Expression incorrecte !", preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
+    
+    @objc func updateTextViewForTotal(_ notification : NSNotification) {
+        if let data = notification.userInfo as NSDictionary? {
+            if let total = data["total"] as? Int{
+                textView.text = textView.text + "=\(total)"
             }
         }
-
-        textView.text = textView.text + "=\(total)"
-
-        clear()
     }
 
-    func updateDisplay() {
+
+    @objc func updateDisplay() {
         var text = ""
-        for (i, stringNumber) in stringNumbers.enumerated() {
+        for (i, stringNumber) in model.stringNumbers.enumerated() {
             // Add operator
             if i > 0 {
-                text += operators[i]
+                text += model.operators[i]
             }
             // Add number
             text += stringNumber
@@ -125,9 +102,5 @@ class ViewController: UIViewController {
         textView.text = text
     }
 
-    func clear() {
-        stringNumbers = [String()]
-        operators = ["+"]
-        index = 0
-    }
+    
 }
