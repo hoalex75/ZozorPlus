@@ -11,9 +11,9 @@ import Foundation
 public class Model {
     var stringNumbers: [String] = [String()]
     var operators: [String] = ["+"]
-    let postman = NotificationsPostman()
+    fileprivate let postman = NotificationsPostman()
     
-    var isExpressionCorrect: Bool {
+    fileprivate var isExpressionCorrect: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
                 if stringNumbers.count == 1 {
@@ -27,7 +27,7 @@ public class Model {
         return true
     }
     
-    var canAddOperator: Bool {
+    fileprivate var canAddOperator: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
                 postman.createAndPostNotifications("IncorrectExpression")
@@ -52,16 +52,7 @@ public class Model {
         if !isExpressionCorrect {
             return
         }
-        var total = 0
-        for (i, stringNumber) in stringNumbers.enumerated() {
-            if let number = Int(stringNumber) {
-                if operators[i] == "+" {
-                    total += number
-                } else if operators[i] == "-" {
-                    total -= number
-                }
-            }
-        }
+        let total = whatIsTheCurrentTotal()
         postman.createAndPostNotificationsWithInt("UpdateTotal", total)
         clear()
     }
@@ -72,6 +63,20 @@ public class Model {
     
     func minus() {
         addOperator("-")
+    }
+    
+    func whatIsTheCurrentTotal() -> Int {
+        var total = 0
+        for (i, stringNumber) in stringNumbers.enumerated() {
+            if let number = Int(stringNumber) {
+                if operators[i] == "+" {
+                    total += number
+                } else if operators[i] == "-" {
+                    total -= number
+                }
+            }
+        }
+        return total
     }
     
     fileprivate func addOperator(_ operatorSign: String){
