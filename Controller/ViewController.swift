@@ -19,17 +19,8 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         model = Model()
         
-        let nameStartANewCalculation = Notification.Name("StartANewCalculation")
-        let nameEnterACorrectExpression = Notification.Name("EnterACorrectExpression")
-        let nameIncorrectExpression = Notification.Name("IncorrectExpression")
-        let nameUpdateDisplay = Notification.Name("UpdateDisplay")
-        let nameUpdateTotal = Notification.Name("UpdateTotal")
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(startANewCalculationAlert), name: nameStartANewCalculation, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(enterACorrectExpressionAlert), name: nameEnterACorrectExpression, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(incorrectExpression), name: nameIncorrectExpression, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay), name: nameUpdateDisplay, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(updateTextViewForTotal(_:)), name: nameUpdateTotal, object: nil)
+        createUpdateNotifications()
+        createAlertsNotifications()
     }
 
     // MARK: - Outlets
@@ -37,7 +28,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
 
-    // MARK: - Action
+    // MARK: - Actions
 
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         for (i, numberButton) in numberButtons.enumerated() {
@@ -60,24 +51,18 @@ class ViewController: UIViewController {
     }
 
 
-    // MARK: - Methods
+    // MARK: - Selectors
 
     @objc func startANewCalculationAlert() {
-        let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
+        createAndDisplayAlerts(message: "Démarrez un nouveau calcul !")
     }
     
-    @objc func enterACorrectExpressionAlert() {
-        let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
+    @objc func enterACorrectExpressionAlert(_ sender : UIViewController) {
+        createAndDisplayAlerts(message: "Entrer une expression correcte !")
     }
     
-    @objc func incorrectExpression() {
-        let alertVC = UIAlertController(title: "Zéro!", message: "Expression incorrecte !", preferredStyle: .alert)
-        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-        self.present(alertVC, animated: true, completion: nil)
+    @objc func incorrectExpression(_ sender : UIViewController) {
+        createAndDisplayAlerts(message: "Expression incorrecte !")
     }
     
     @objc func updateTextViewForTotal(_ notification : NSNotification) {
@@ -88,19 +73,37 @@ class ViewController: UIViewController {
         }
     }
 
-
-    @objc func updateDisplay() {
-        var text = ""
-        for (i, stringNumber) in model.stringNumbers.enumerated() {
-            // Add operator
-            if i > 0 {
-                text += model.operators[i]
+    @objc func updateDisplay(_ notification : NSNotification) {
+        if let data = notification.userInfo as NSDictionary? {
+            if let text = data["text"] as? String{
+                textView.text = text
             }
-            // Add number
-            text += stringNumber
         }
-        textView.text = text
     }
-
     
+    //Mark: -Methods
+    
+    fileprivate func createUpdateNotifications(){
+        let nameUpdateDisplay = Notification.Name("UpdateDisplay")
+        let nameUpdateTotal = Notification.Name("UpdateTotal")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(updateDisplay(_ :)), name: nameUpdateDisplay, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTextViewForTotal(_:)), name: nameUpdateTotal, object: nil)
+    }
+    
+    fileprivate func createAlertsNotifications() {
+        let nameStartANewCalculation = Notification.Name("StartANewCalculation")
+        let nameEnterACorrectExpression = Notification.Name("EnterACorrectExpression")
+        let nameIncorrectExpression = Notification.Name("IncorrectExpression")
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(startANewCalculationAlert), name: nameStartANewCalculation, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(enterACorrectExpressionAlert), name: nameEnterACorrectExpression, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(incorrectExpression), name: nameIncorrectExpression, object: nil)
+    }
+    
+    fileprivate func createAndDisplayAlerts(message : String) {
+        let alertVC = UIAlertController(title: "Zéro!", message: message, preferredStyle: .alert)
+        alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+        self.present(alertVC, animated: true, completion: nil)
+    }
 }

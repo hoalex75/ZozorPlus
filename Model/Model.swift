@@ -11,14 +11,15 @@ import Foundation
 public class Model {
     var stringNumbers: [String] = [String()]
     var operators: [String] = ["+"]
+    let postman = NotificationsPostman()
     
     var isExpressionCorrect: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
                 if stringNumbers.count == 1 {
-                    createAndPostNotifications("StartANewCalculation")
+                    postman.createAndPostNotifications("StartANewCalculation")
                 } else {
-                    createAndPostNotifications("EnterACorrectExpression")
+                    postman.createAndPostNotifications("EnterACorrectExpression")
                 }
                 return false
             }
@@ -29,7 +30,7 @@ public class Model {
     var canAddOperator: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
-                createAndPostNotifications("IncorrectExpression")
+                postman.createAndPostNotifications("IncorrectExpression")
                 
                 return false
             }
@@ -44,14 +45,13 @@ public class Model {
             stringNumberMutable += "\(newNumber)"
             stringNumbers[stringNumbers.count-1] = stringNumberMutable
         }
-        createAndPostNotifications("UpdateDisplay")
+        postman.createAndPostNotificationsWithText("UpdateDisplay", updateTextView())
     }
     
     func calculateTotal() {
         if !isExpressionCorrect {
             return
         }
-        
         var total = 0
         for (i, stringNumber) in stringNumbers.enumerated() {
             if let number = Int(stringNumber) {
@@ -62,43 +62,41 @@ public class Model {
                 }
             }
         }
-        
-        
-        let totalToSend: [String : Int] = ["total" : total]
-        let name = Notification.Name("UpdateTotal")
-        NotificationCenter.default.post(name: name, object: nil, userInfo: totalToSend)
-        
-        
-        
+        postman.createAndPostNotificationsWithInt("UpdateTotal", total)
         clear()
     }
     
     func plus() {
-        if canAddOperator {
-            operators.append("+")
-            stringNumbers.append("")
-            createAndPostNotifications("UpdateDisplay")
-        }
+        addOperator("+")
     }
     
     func minus() {
-        if canAddOperator {
-            operators.append("-")
-            stringNumbers.append("")
-            createAndPostNotifications("UpdateDisplay")
-        }
+        addOperator("-")
     }
     
-    
-    
-    fileprivate func createAndPostNotifications(_ NotificationName: String) {
-        let name = Notification.Name(NotificationName)
-        let notification = Notification(name: name)
-        NotificationCenter.default.post(notification)
+    fileprivate func addOperator(_ operatorSign: String){
+        if canAddOperator {
+            operators.append(operatorSign)
+            stringNumbers.append("")
+            postman.createAndPostNotificationsWithText("UpdateDisplay", updateTextView())
+        }
     }
     
     fileprivate func clear() {
         stringNumbers = [String()]
         operators = ["+"]
+    }
+    
+    fileprivate func updateTextView() -> String {
+        var text = ""
+        for (i, stringNumber) in stringNumbers.enumerated() {
+            // Add operator
+            if i > 0 {
+                text += operators[i]
+            }
+            // Add number
+            text += stringNumber
+        }
+        return text
     }
 }

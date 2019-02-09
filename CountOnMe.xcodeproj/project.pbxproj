@@ -16,6 +16,7 @@
 		C9DA150A1DF08CF100B0974D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9DA15091DF08CF100B0974D /* Default-568h@2x.png */; };
 		FAD2EA0D220E1AC30051BDAA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2EA0C220E1AC30051BDAA /* Model.swift */; };
 		FAD2EA0F220E1B0B0051BDAA /* ModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2EA0E220E1B0B0051BDAA /* ModelTest.swift */; };
+		FAD2EA13220EDEA80051BDAA /* NotificationsPostman.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2EA12220EDEA80051BDAA /* NotificationsPostman.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		C9DA15091DF08CF100B0974D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		FAD2EA0C220E1AC30051BDAA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		FAD2EA0E220E1B0B0051BDAA /* ModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTest.swift; sourceTree = "<group>"; };
+		FAD2EA12220EDEA80051BDAA /* NotificationsPostman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPostman.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,8 +115,8 @@
 		C926DAF01D7581BB00477020 /* CountOnMeTests */ = {
 			isa = PBXGroup;
 			children = (
-				C926DAF31D7581BB00477020 /* Info.plist */,
 				FAD2EA0E220E1B0B0051BDAA /* ModelTest.swift */,
+				C926DAF31D7581BB00477020 /* Info.plist */,
 			);
 			name = CountOnMeTests;
 			path = "Zozor+Tests";
@@ -134,6 +136,7 @@
 			isa = PBXGroup;
 			children = (
 				FAD2EA0C220E1AC30051BDAA /* Model.swift */,
+				FAD2EA12220EDEA80051BDAA /* NotificationsPostman.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -294,6 +297,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAD2EA0D220E1AC30051BDAA /* Model.swift in Sources */,
+				FAD2EA13220EDEA80051BDAA /* NotificationsPostman.swift in Sources */,
 				C926DADF1D7581BB00477020 /* ViewController.swift in Sources */,
 				C926DADD1D7581BB00477020 /* AppDelegate.swift in Sources */,
 			);
