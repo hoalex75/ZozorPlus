@@ -65,7 +65,12 @@ public class Model {
         addOperator("-")
     }
     
+    func multiply() {
+        addOperator("X")
+    }
+    
     func whatIsTheCurrentTotal() -> Int {
+        conformingMultiplicationToPlusAndMinus()
         var total = 0
         for (i, stringNumber) in stringNumbers.enumerated() {
             if let number = Int(stringNumber) {
@@ -103,5 +108,65 @@ public class Model {
             text += stringNumber
         }
         return text
+    }
+    
+    func whereIsTheFirstMultiply() -> Int {
+        var position = -1
+        for (i,operatorsSign) in operators.enumerated() {
+            if operatorsSign == "X" {
+                position = i
+                break
+            }
+        }
+        return position
+    }
+    
+    func reduceOperators(_ firstMultiplyPosition : Int) {
+        var newOperators = ["+"]
+        for i in 1...firstMultiplyPosition-1 {
+            newOperators.append(operators[i])
+        }
+        if operators.count-1 > firstMultiplyPosition {
+            for j in firstMultiplyPosition+1...operators.count-1 {
+                newOperators.append(operators[j])
+            }
+        }
+        operators = newOperators
+    }
+    
+    func reduceStringNumbers(_ firstMultiplyPosition : Int){
+        var newStringNumbers : [String]
+        var resultOfMultiplication = 0
+        if let numberOne = Int(stringNumbers[firstMultiplyPosition-1]), let numberTwo = Int(stringNumbers[firstMultiplyPosition]) {
+            resultOfMultiplication = numberOne * numberTwo
+        }
+        if firstMultiplyPosition == 1 {
+            newStringNumbers = ["\(resultOfMultiplication)"]
+            for i in 1...stringNumbers.count-2 {
+                newStringNumbers.append(stringNumbers[i+1])
+            }
+        } else {
+            newStringNumbers = [stringNumbers[0]]
+            if firstMultiplyPosition-2 >= 1 {
+                for i in 1...firstMultiplyPosition-2 {
+                    newStringNumbers.append(stringNumbers[i])
+                }
+            }
+            newStringNumbers.append("\(resultOfMultiplication)") //firstMultiplyPosition -1
+            if stringNumbers.count-1>firstMultiplyPosition {
+                for j in firstMultiplyPosition...stringNumbers.count-2 {
+                    newStringNumbers.append(stringNumbers[j+1])
+                }
+            }
+        }
+        stringNumbers = newStringNumbers
+    }
+    
+    func conformingMultiplicationToPlusAndMinus() {
+        while whereIsTheFirstMultiply() != -1 {
+            let firstMultiply = whereIsTheFirstMultiply()
+            reduceStringNumbers(firstMultiply)
+            reduceOperators(firstMultiply)
+        }
     }
 }

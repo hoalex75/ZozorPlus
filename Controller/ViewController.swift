@@ -38,6 +38,10 @@ class ViewController: UIViewController {
         }
     }
 
+    @IBAction func multiply(_ sender: Any) {
+        model.multiply()
+    }
+    
     @IBAction func plus() {
         model.plus()
     }
