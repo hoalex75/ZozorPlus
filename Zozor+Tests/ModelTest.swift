@@ -82,7 +82,7 @@ class ModelTest: XCTestCase {
         XCTAssertEqual(total, 1)
     }
     
-    func testGivenTwoPlusThreeMuliplyByTwo_WhenWhatIsTheCurrentTotal_ThenTotalIsSix() {
+    func testGivenTwoPlusThreeMuliplyByTwo_WhenWhatIsTheCurrentTotal_ThenTotalIsEight() {
         model.addNewNumber(2)
         model.plus()
         model.addNewNumber(3)
@@ -92,6 +92,16 @@ class ModelTest: XCTestCase {
         let total = model.whatIsTheCurrentTotal()
         
         XCTAssertEqual(total, 8)
+    }
+    
+    func testGivenThreeMuliplyByTwo_WhenWhatIsTheCurrentTotal_ThenTotalIsSix() {
+        model.addNewNumber(3)
+        model.multiply()
+        model.addNewNumber(2)
+        
+        let total = model.whatIsTheCurrentTotal()
+        
+        XCTAssertEqual(total, 6)
     }
     
     func testGivenThreeMinusTwo_WhenCalculateTotal_ThenUpdateTotalIsSent() {
