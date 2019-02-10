@@ -124,8 +124,10 @@ public class Model {
     func reduceOperators(_ firstMultiplyPosition : Int) {
         var newOperators = ["+"]
         if operators.count > 2 {
-            for i in 1...firstMultiplyPosition-1 {
-                newOperators.append(operators[i])
+            if firstMultiplyPosition > 1{
+                for i in 1...firstMultiplyPosition-1 {
+                    newOperators.append(operators[i])
+                }
             }
             if operators.count-1 > firstMultiplyPosition {
                 for j in firstMultiplyPosition+1...operators.count-1 {
