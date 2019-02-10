@@ -13,7 +13,6 @@
 		C926DAE41D7581BB00477020 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C926DAE31D7581BB00477020 /* Assets.xcassets */; };
 		C926DAE71D7581BB00477020 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C926DAE51D7581BB00477020 /* LaunchScreen.storyboard */; };
 		C926DAFD1D7581BB00477020 /* Zozor_UITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926DAFC1D7581BB00477020 /* Zozor_UITests.swift */; };
-		C9DA150A1DF08CF100B0974D /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = C9DA15091DF08CF100B0974D /* Default-568h@2x.png */; };
 		FAD2EA0D220E1AC30051BDAA /* Model.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2EA0C220E1AC30051BDAA /* Model.swift */; };
 		FAD2EA0F220E1B0B0051BDAA /* ModelTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2EA0E220E1B0B0051BDAA /* ModelTest.swift */; };
 		FAD2EA13220EDEA80051BDAA /* NotificationsPostman.swift in Sources */ = {isa = PBXBuildFile; fileRef = FAD2EA12220EDEA80051BDAA /* NotificationsPostman.swift */; };
@@ -49,7 +48,6 @@
 		C926DAF81D7581BB00477020 /* CountOnMeUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountOnMeUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		C926DAFC1D7581BB00477020 /* Zozor_UITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Zozor_UITests.swift; sourceTree = "<group>"; };
 		C926DAFE1D7581BB00477020 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		C9DA15091DF08CF100B0974D /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		FAD2EA0C220E1AC30051BDAA /* Model.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Model.swift; sourceTree = "<group>"; };
 		FAD2EA0E220E1B0B0051BDAA /* ModelTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelTest.swift; sourceTree = "<group>"; };
 		FAD2EA12220EDEA80051BDAA /* NotificationsPostman.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsPostman.swift; sourceTree = "<group>"; };
@@ -83,7 +81,6 @@
 		C926DAD01D7581BB00477020 = {
 			isa = PBXGroup;
 			children = (
-				C9DA15091DF08CF100B0974D /* Default-568h@2x.png */,
 				FAD2EA09220DF8030051BDAA /* Model */,
 				C926DADB1D7581BB00477020 /* View */,
 				FAD2EA0A220DF8360051BDAA /* Controller */,
@@ -269,7 +266,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				C926DAE71D7581BB00477020 /* LaunchScreen.storyboard in Resources */,
-				C9DA150A1DF08CF100B0974D /* Default-568h@2x.png in Resources */,
 				C926DAE41D7581BB00477020 /* Assets.xcassets in Resources */,
 				C926DAE21D7581BB00477020 /* Main.storyboard in Resources */,
 			);

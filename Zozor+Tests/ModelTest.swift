@@ -41,9 +41,11 @@ class ModelTest: XCTestCase {
     
     // MARK: -Add a new number tests
     func testGivenNoNumbersInStringNumber_WhenAddTheNumberTwo_ThenStringNumberIsTWo() {
+        expectation(forNotification: nameUpdateDisplay, object: nil, handler: nil)
         model.addNewNumber(2)
         
         XCTAssertEqual(model.stringNumbers, ["2"])
+        waitForExpectations(timeout: 5, handler: nil)
     }
     
     // MARK: -Operators tests
@@ -72,12 +74,12 @@ class ModelTest: XCTestCase {
     // MARK: -Total tests
     func testGivenThreePlusTwo_WhenWhatIsTheCurrentTotal_ThenTotalIsFive() {
         model.addNewNumber(3)
-        model.plus()
+        model.minus()
         model.addNewNumber(2)
         
         let total = model.whatIsTheCurrentTotal()
         
-        XCTAssertEqual(total, 5)
+        XCTAssertEqual(total, 1)
     }
     
     func testGivenTwoPlusThreeMuliplyByTwo_WhenWhatIsTheCurrentTotal_ThenTotalIsSix() {
@@ -117,10 +119,11 @@ class ModelTest: XCTestCase {
         expectation(forNotification: Notification.Name("EnterACorrectExpression"),object: nil,handler: nil)
         
         model.calculateTotal()
-        
     
         waitForExpectations(timeout: 5, handler: nil)
     }
+    
+    // MARK: -Multiplication tests
     
     func testGivenTwoPlusThreeMultiplyByFourMultiplyByFive_WhenWhereIsTheFirstMultiply_ThenIsInIndexThree() {
         model.addNewNumber(2)
