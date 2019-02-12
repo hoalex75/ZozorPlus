@@ -8,6 +8,7 @@
 
 import Foundation
 
+// class which allow to create and post some notification on the default canal of NotificationCenter
 public class NotificationsPostman {
     func createAndPostNotifications(_ NotificationName: String) {
         let name = Notification.Name(NotificationName)

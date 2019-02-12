@@ -87,6 +87,7 @@ class ViewController: UIViewController {
     
     //Mark: -Methods
     
+    // Create and addObservers on Notifications which concern the display
     fileprivate func createUpdateNotifications(){
         let nameUpdateDisplay = Notification.Name("UpdateDisplay")
         let nameUpdateTotal = Notification.Name("UpdateTotal")
@@ -95,6 +96,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(updateTextViewForTotal(_:)), name: nameUpdateTotal, object: nil)
     }
     
+    // Create and addObservers on Notifications which concern the alerts
     fileprivate func createAlertsNotifications() {
         let nameStartANewCalculation = Notification.Name("StartANewCalculation")
         let nameEnterACorrectExpression = Notification.Name("EnterACorrectExpression")
@@ -105,6 +107,7 @@ class ViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(incorrectExpression), name: nameIncorrectExpression, object: nil)
     }
     
+    // Create and display an alert to the user with the message given in parameters
     fileprivate func createAndDisplayAlerts(message : String) {
         let alertVC = UIAlertController(title: "Zéro!", message: message, preferredStyle: .alert)
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))

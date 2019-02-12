@@ -13,6 +13,7 @@ public class Model {
     var operators: [String] = ["+"]
     fileprivate let postman = NotificationsPostman()
     
+    //Evaluate if the expression entered is valid for calculateTotal if not send a notification to Controller
     fileprivate var isExpressionCorrect: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
@@ -27,6 +28,7 @@ public class Model {
         return true
     }
     
+    // Evaluate if the last add was an operator if it is then send a notification to Controller
     fileprivate var canAddOperator: Bool {
         if let stringNumber = stringNumbers.last {
             if stringNumber.isEmpty {
@@ -38,7 +40,7 @@ public class Model {
         return true
     }
     
-    
+    // Concatenate the new number with the last one in stringNumbers if exists
     func addNewNumber(_ newNumber: Int) {
         if let stringNumber = stringNumbers.last {
             var stringNumberMutable = stringNumber
@@ -48,6 +50,7 @@ public class Model {
         postman.createAndPostNotificationsWithText("UpdateDisplay", updateTextView())
     }
     
+    // Get the current total and send it to the controller with a notification
     func calculateTotal() {
         if !isExpressionCorrect {
             return
@@ -56,7 +59,7 @@ public class Model {
         postman.createAndPostNotificationsWithInt("UpdateTotal", total)
         clear()
     }
-    
+
     func plus() {
         addOperator("+")
     }
@@ -69,6 +72,7 @@ public class Model {
         addOperator("X")
     }
     
+    // Calculate the current Total and return it
     func whatIsTheCurrentTotal() -> Int {
         conformingMultiplicationToPlusAndMinus()
         var total = 0
@@ -84,6 +88,7 @@ public class Model {
         return total
     }
     
+    // Add the operator passed in parameters and add a new String to stringNumbers then notify the controller
     fileprivate func addOperator(_ operatorSign: String){
         if canAddOperator {
             operators.append(operatorSign)
@@ -97,6 +102,7 @@ public class Model {
         operators = ["+"]
     }
     
+    // Concatenate stringNumbers and operators into only one String and return it
     fileprivate func updateTextView() -> String {
         var text = ""
         for (i, stringNumber) in stringNumbers.enumerated() {
@@ -110,6 +116,7 @@ public class Model {
         return text
     }
     
+    // Return the index of the first multiply operator in operators, if not return -1
     func whereIsTheFirstMultiply() -> Int {
         var position = -1
         for (i,operatorsSign) in operators.enumerated() {
@@ -121,6 +128,7 @@ public class Model {
         return position
     }
     
+    // Replace operators by the same array with no first multiply left
     func reduceOperators(_ firstMultiplyPosition : Int) {
         var newOperators = ["+"]
         if operators.count > 2 {
@@ -138,6 +146,7 @@ public class Model {
         operators = newOperators
     }
     
+    // replace the two first numbers which should be multiply by the result of their multiplication
     func reduceStringNumbers(_ firstMultiplyPosition : Int){
         var newStringNumbers : [String]
         var resultOfMultiplication = 0
@@ -168,6 +177,7 @@ public class Model {
         stringNumbers = newStringNumbers
     }
     
+    // Call the two functions of reduction until there i no multiply left
     func conformingMultiplicationToPlusAndMinus() {
         while whereIsTheFirstMultiply() != -1 {
             let firstMultiply = whereIsTheFirstMultiply()
